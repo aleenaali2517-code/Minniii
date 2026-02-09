@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Surprise for My Bestie 💖</title>
+  <style>
+    /* ---------- General Styles ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      text-align: center;
+      position: relative;
+      color: #fff;
+    }
+    button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 10px;
+      background: #fff;
+      color: #ff4d6d;
+      transition: transform 0.2s;
+    }
+    button:hover { transform: scale(1.1); }
+
+    .hidden { display: none; }
+
+    /* ---------- Floating Hearts ---------- */
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 20px;
+      animation: float 5s linear infinite;
+      color: #ff4d6d;
+    }
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* ---------- Page Containers ---------- */
+    .page {
+      max-width: 600px;
+      padding: 20px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    /* ---------- Letter Page ---------- */
+    #letterContainer {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    #letterText {
+      text-align: left;
+      font-size: 18px;
+      line-height: 1.6;
+      max-width: 350px;
+    }
+    #letterImage {
+      width: 200px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    /* ---------- White Rose Page ---------- */
+    #roseImage {
+      width: 300px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      margin-top: 20px;
+    }
+    #roseMessage {
+      font-size: 22px;
+      margin-top: 15px;
+      color: #fff;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ---------- Page 1: Warning ---------- -->
+  <div id="page1" class="page">
+    <h1>⚠️ Warning ⚠️</h1>
+    <p>this page may cause emotional damage and you might miss me after this 😌</p>
+    <p>Are you sure to continue?</p>
+    <button onclick="p1Yes()">Yes 💜</button>
+    <button onclick="p1No()">No 😅</button>
+    <p id="p1NoMsg"></p>
+  </div>
+
+  <!-- ---------- Page 2: Letter ---------- -->
+  <div id="page2" class="page hidden">
+    <div id="letterContainer">
+      <div id="letterText"></div>
+      <img src="letter.jpg" id="letterImage" alt="Letter">
+    </div>
+    <p>Now tell me, do you miss me?</p>
+    <button onclick="p2Yes()">Yes 😭</button>
+    <button onclick="p2No()">No 😅</button>
+    <p id="p2NoMsg"></p>
+  </div>
+
+  <!-- ---------- Page 3: White Rose ---------- -->
+  <div id="page3" class="page hidden">
+    <h2 id="roseMessage">Aww, this is for you 🥹</h2>
+    <img src="whiterose.jpg" id="roseImage" alt="White Rose">
+  </div>
+
+  <!-- ---------- Floating Hearts ---------- -->
+  <script>
+    function startHearts(){
+      setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerHTML = '💖';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+        document.body.appendChild(heart);
+        setTimeout(()=> heart.remove(), 5000);
+      }, 300);
+    }
+    startHearts();
+  </script>
+
+  <!-- ---------- Page Logic ---------- -->
+  <script>
+    const page1 = document.getElementById('page1');
+    const page2 = document.getElementById('page2');
+    const page3 = document.getElementById('page3');
+    const p1NoMsg = document.getElementById('p1NoMsg');
+    const p2NoMsg = document.getElementById('p2NoMsg');
+    const letterText = document.getElementById('letterText');
+
+    // Page 1
+    function p1Yes() {
+      page1.classList.add('hidden');
+      page2.classList.remove('hidden');
+      showLetter();
+    }
+    function p1No() {
+      p1NoMsg.innerText = 'Too afraid? 😅';
+    }
+
+    // Page 2 Letter Line by Line
+    const letterContent = [
+      "Hey you 😌",
+      "So… you ignored the warning.",
+      "Bold of you.",
+      "I hope you know this means",
+      "you’re officially stuck with me now 💅",
+      "Thank you for being my safe place,",
+      "my chaos partner,",
+      "and the person who understands my nonsense",
+      "without explanations 🥹",
+      "You’re not just my best friend.",
+      "You’re my forever one 💗",
+      "— Aleena"
+    ];
+
+    function showLetter() {
+      letterText.innerHTML = '';
+      let index = 0;
+      const interval = setInterval(() => {
+        if(index >= letterContent.length){
+          clearInterval(interval);
+          return;
+        }
+        letterText.innerHTML += letterContent[index] + '<br>';
+        index++;
+      }, 500);
+    }
+
+    // Page 2 buttons
+    function p2Yes() {
+      page2.classList.add('hidden');
+      page3.classList.remove('hidden');
+    }
+    function p2No() {
+      p2NoMsg.innerText = 'Lying is not good for health 😅';
+    }
+
+  </script>
+
+</body>
+  </html>
